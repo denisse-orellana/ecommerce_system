@@ -13,15 +13,27 @@ Initial state of the platform:
 
 ![diagram1](/app/assets/images/ecommerce_system.png)
 
-The changes made are describe in the next flowchart:
+The changes are describe in the next flowchart:
 
 ![diagram2](/app/assets/images/ecommerce.drawio.png)
 
-- Variant will be the association of the Product with Color an Size.
+- Variant will contain part of the association of the Product with Color an Size.
 - Category works as a reflexive association.
 - UserCoupon is related to the Order for a particular User.
 
 ### 2. Creating the model for Variant
+
+First things first, the model of color and size is created using the scaffold command:
+
+```
+rails g scaffold color name
+rails g scaffold size name
+```
+
+
+
+
+
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
