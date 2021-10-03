@@ -210,8 +210,19 @@ class Order < ApplicationRecord
 end
 ```
 
-* In the console this is checked as:
+* In the console these relations can be checked as:
 
 ```
+User.new.coupons
+User.new.orders
+```
 
+```
+Coupon.new.users
+Coupon.new.orders
+```
+
+```
+Order.new.coupons
+Order.new.users
 ```
