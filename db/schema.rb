@@ -127,7 +127,7 @@ ActiveRecord::Schema.define(version: 2021_10_02_213806) do
     t.bigint "user_id"
     t.bigint "coupon_id"
     t.bigint "order_id"
-    t.boolean "active"
+    t.boolean "active", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["coupon_id"], name: "index_user_coupons_on_coupon_id"

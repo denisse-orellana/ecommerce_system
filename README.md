@@ -34,7 +34,7 @@ Next, the model Variant is generated:
 rails g model Variant size:references color:references product:references stock:integer
 ```
 
-Then, the relations are made in the models:
+Then, the relations are added in the models:
 
 ```
 class Product < ApplicationRecord
@@ -72,7 +72,7 @@ end
 
 ### 4. Implementing subcategories
 
-Let's remember that Category works as reflexive association so it will contain new Categories inside it. This way will provide one father for the different categories that would be incorporated. These new Categories are added in the terminal:
+Let's remember that Category works as reflexive association so it will contain new Categories inside it. This way will provide one father for the different categories that would be incorporated. These new Categories are the subcategories and are generated:
 
 ```
 rails g migration AddCategoryToCategory category:references  
@@ -81,8 +81,10 @@ rails g migration AddCategoryToCategory category:references
 The relation is incorporated in the model:
 
 ```
-has_many :sub_categories, class_name: "Category", foreign_key: "category_id", dependent: :destroy						
-belongs_to :main_category, class_name: "Category", foreign_key: "category_id", optional: true
+class Category < ApplicationRecord
+  has_many :sub_categories, class_name: "Category", foreign_key: "category_id", dependent: :destroy						
+  belongs_to :main_category, class_name: "Category", foreign_key: "category_id", optional: true						
+end
 ```
 
 ### 5. Category scope 
@@ -93,25 +95,40 @@ belongs_to :main_category, class_name: "Category", foreign_key: "category_id", o
 
 ### 8. Coupons 
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The coupons for specific clients are incorporated generating first the model of Coupon.
 
-Things you may want to cover:
+```
+rails g scaffold Coupon name code discount:integer 
+```
 
-* Ruby version
+The UserCoupon would provide the associations between the model User, Coupon and Order. The active attribute means if it's been expended (it's put as "default: false" in the migration).
 
-* System dependencies
+```
+rails g model UserCoupon user:references coupon:references order:references active:boolean
+```
 
-* Configuration
+The relations are added in the model in this way:
 
-* Database creation
+```
+class User < ApplicationRecord
+  has_many :user_coupons
+  has_many :coupons, through: :user_coupons, dependent: :destroy
+  has_many :orders, through: :user_coupons, dependent: :destroy
+end
 
-* Database initialization
+```
 
-* How to run the test suite
+```
+class Coupon < ApplicationRecord
+    has_many :user_coupons
+    has_many :users, through: :user_coupons, dependent: :destroy  
+    has_many :orders, through: :user_coupons, dependent: :destroy
+end
+```
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+class Order < ApplicationRecord
+  has_many :user_coupons
+  has_many :coupons, through: :user_coupons, dependent: :destroy
+end
+```

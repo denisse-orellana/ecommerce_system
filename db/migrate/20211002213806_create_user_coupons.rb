@@ -4,7 +4,7 @@ class CreateUserCoupons < ActiveRecord::Migration[5.2]
       t.references :user, foreign_key: true
       t.references :coupon, foreign_key: true
       t.references :order, foreign_key: true
-      t.boolean :active
+      t.boolean :active, default: false
 
       t.timestamps
     end
