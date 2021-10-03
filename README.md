@@ -52,6 +52,12 @@ class Variant < ApplicationRecord
 end
 ```
 
+And because stock:integer is already included in the model Variant it is remove from the model Product:
+
+```
+rails g migration removeStockFromProduct stock:integer
+```
+
 ### 3. Making the model and relations for Size and Color
 
 Since the models were previously made for each of them, the addition of the relations looks like:
@@ -97,14 +103,6 @@ The model OrdenItem used to be directly related with Product but, as it can be s
 
 ```
 rails g migration AddVariantToOrderItem variant:references
-```
-
-Also:
-
-```
-class OrderItem < ApplicationRecord
-  belongs_to :variants
-end
 ```
 
 And the reference of Product is remove from OrderItem, since they are not related anymore.
