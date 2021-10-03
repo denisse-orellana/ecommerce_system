@@ -10,6 +10,7 @@ class Order < ApplicationRecord
 
   has_many :user_coupons
   has_many :coupons, through: :user_coupons, dependent: :destroy
+  has_many :users, through: :user_coupons, dependent: :destroy
 
   validates :number, uniqueness: true
 

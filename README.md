@@ -91,7 +91,27 @@ end
 
 ### 6. Implementing the products list 
 
-### 7. Modification in the model OrderItem
+### 7. Modifications in the model OrderItem
+
+The model OrdenItem used to be directly related with Product but, as it can be seen in the flowchart, after the changes is Variant the one that contains the key associations. Because of this, the reference of Variant is added to OrderItem just as:
+
+```
+rails g migration AddVariantToOrderItem variant:references
+```
+
+Also:
+
+```
+class OrderItem < ApplicationRecord
+  belongs_to :variants
+end
+```
+
+And the reference of Product is remove from OrderItem, since they are not related anymore.
+
+```
+rails g migration removeProductFromOrderItem product:references
+```
 
 ### 8. Coupons 
 
@@ -130,5 +150,6 @@ end
 class Order < ApplicationRecord
   has_many :user_coupons
   has_many :coupons, through: :user_coupons, dependent: :destroy
+  has_many :users, through: :user_coupons, dependent: :destroy
 end
 ```
