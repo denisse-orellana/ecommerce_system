@@ -62,7 +62,7 @@ class Variant < ApplicationRecord
 end
 ```
 
-And because stock:integer is already included in the model Variant it is remove from the model Product:
+And because stock:integer is now included in the model Variant it is remove from the model Product:
 
 ```
 rails g migration removeStockFromProduct stock:integer
