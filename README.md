@@ -72,8 +72,26 @@ end
 
 ### 4. Implementing subcategories
 
+Let's remember that Category works as reflexive association so it will contain new Categories inside it. This way will provide one father for the different categories that would be incorporated. These new Categories are added in the terminal:
 
+```
+rails g migration AddCategoryToCategory category:references  
+```
 
+The relation is incorporated in the model:
+
+```
+has_many :sub_categories, class_name: "Category", foreign_key: "category_id", dependent: :destroy						
+belongs_to :main_category, class_name: "Category", foreign_key: "category_id", optional: true
+```
+
+### 5. Category scope 
+
+### 6. Implementing the products list 
+
+### 7. Modification in the model OrderItem
+
+### 8. Coupons 
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
