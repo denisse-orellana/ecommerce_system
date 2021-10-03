@@ -2,7 +2,6 @@
 
 This project covers a series of improvements in the system due to the changing needs of the entity. The new funcionality extends to products with associations of color and size, an independent stock variable and the addition of subcategories and coupons. Changes are summarised in the model diagram. 
 
-- [eCommerce System](#ecommerce-system)
   * [Ruby & Rails version](#ruby---rails-version)
     + [1. Model Diagram](#1-model-diagram)
     + [2. Making the model and relations for Variant](#2-making-the-model-and-relations-for-variant)
