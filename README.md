@@ -86,9 +86,21 @@ class Color < ApplicationRecord
 end
 ```
 
+* The functionality of the previous relations can be checked in the rails console as:
+
+```
+Product.new.variants
+Variant.new.product
+```
+
+```
+Product.new.sizes
+Product.new.colors
+```
+
 ### 4. Implementing subcategories
 
-Let's remember that Category works as reflexive association so it will contain new Categories inside. This way will provide one father for the different categories that would be incorporated. These new Categories are the subcategories and are generated:
+Let's remember that Category works as reflexive association so it will contain new categories inside itself. This way will provide one father (the main category) for the different categories that would be incorporated and these are the subcategories.
 
 ```
 rails g migration AddCategoryToCategory category:references  
@@ -103,22 +115,58 @@ class Category < ApplicationRecord
 end
 ```
 
+* The relation in the console looks like:
+
+```
+Category.new.main_category
+Category.new.sub_categories
+```
+
 ### 5. Category scope 
 
 ### 6. Implementing the products list 
 
 ### 7. Modifications in the model OrderItem
 
-The model OrdenItem used to be directly related with Product but, as it can be seen in the flowchart, after the changes is Variant the one that contains the key associations. Because of this, the reference of Variant is added to OrderItem just as:
+The model OrdenItem used to be directly related with Product but, as it can be seen in the flowchart, after the changes is Variant the one that contains the key associations. To keep the functionality of the system the reference of Variant is added to OrderItem just as:
 
 ```
 rails g migration AddVariantToOrderItem variant:references
 ```
 
-And the reference of Product is remove from OrderItem, since they are not related anymore.
+The relations is added to the model:
+
+```
+class OrderItem < ApplicationRecord
+  belongs_to :variant
+end
+```
+
+To the model Variant is also added:
+
+```
+class Variant < ApplicationRecord
+  has_many :order_items
+  has_many :orders, through: :order_items
+end
+```
+
+The reference of Product is remove from it, since they are not related anymore.
 
 ```
 rails g migration removeProductFromOrderItem product:references
+```
+
+* In the console, this functionality looks like:
+
+```
+Order.new.variants
+Variant.new.orders
+```
+
+```
+OrderItem.new.variant
+OrderItem.new.order
 ```
 
 ### 8. Coupons 
@@ -148,9 +196,9 @@ end
 
 ```
 class Coupon < ApplicationRecord
-    has_many :user_coupons
-    has_many :users, through: :user_coupons, dependent: :destroy  
-    has_many :orders, through: :user_coupons, dependent: :destroy
+  has_many :user_coupons
+  has_many :users, through: :user_coupons, dependent: :destroy  
+  has_many :orders, through: :user_coupons, dependent: :destroy
 end
 ```
 
@@ -160,4 +208,10 @@ class Order < ApplicationRecord
   has_many :coupons, through: :user_coupons, dependent: :destroy
   has_many :users, through: :user_coupons, dependent: :destroy
 end
+```
+
+* In the console this is checked as:
+
+```
+
 ```
