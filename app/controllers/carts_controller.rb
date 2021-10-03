@@ -55,11 +55,12 @@ class CartsController < ApplicationController
     price = details.params["order_total"].to_d * 100
 
     response = EXPRESS_GATEWAY.purchase(price, express_purchase_options)
+
     if response.success?
       payment = Payment.find_by(token: response.token)
       order = payment.order
 
-      #update object states
+      # Update object states
       payment.state = "completed"
       order.state = "completed"
 
