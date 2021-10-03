@@ -15,7 +15,10 @@ class Order < ApplicationRecord
   has_many :coupons, through: :user_coupons, dependent: :destroy
   has_many :users, through: :user_coupons, dependent: :destroy
 
-  validates :number, uniqueness: true
+  validates :user_id, presence: true, uniqueness: true, allow_blank: false, allow_nil: false
+  validates :number, presence: true, uniqueness: true, allow_blank: false, allow_nil: false
+  validates :total, presence: true, uniqueness: true, allow_blank: false, allow_nil: false
+  validates :state, presence: true, uniqueness: true, allow_blank: false, allow_nil: false
 
   def generate_number(size)
     self.number ||= loop do

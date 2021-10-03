@@ -8,8 +8,8 @@ class Product < ApplicationRecord
   has_many :colors, through: :variants, dependent: :destroy
   has_many :sizes, through: :variants, dependent: :destroy
 
-  validates :name, presence: true, uniqueness: :true, allow_blank: false, allow_nil: false
-  validates :description, presence: true, uniqueness: :true, allow_blank: false, allow_nil: false
-  validates :price, presence: true, uniqueness: :true, allow_blank: false, allow_nil: false
-  validates :sku, presence: true, uniqueness: :true, allow_blank: false, allow_nil: false
+  validates :name, presence: true, uniqueness: true, allow_blank: false, allow_nil: false
+  validates :description, presence: true, uniqueness: true, allow_blank: false, allow_nil: false
+  validates :price, presence: true, uniqueness: true, allow_blank: false, allow_nil: false
+  validates :sku, presence: true, uniqueness: true, allow_blank: false, allow_nil: false
 end
