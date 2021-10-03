@@ -11,7 +11,7 @@ This project covers a series of improvements in the system due to the changing n
 
 flowchart model
 
-![diagram1](/assets/images/ecommerce_system.png)
+![diagram1](/app/assets/images/ecommerce_system.png)
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
