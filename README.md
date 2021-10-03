@@ -2,6 +2,17 @@
 
 This project covers a series of improvements in the system due to the changing needs of the entity. The new funcionality extends to products with associations of color and size, an independent stock variable and the addition of subcategories and coupons. Changes are summarised in the model diagram. 
 
+- [eCommerce System](#ecommerce-system)
+  * [Ruby & Rails version](#ruby---rails-version)
+    + [1. Model Diagram](#1-model-diagram)
+    + [2. Making the model and relations for Variant](#2-making-the-model-and-relations-for-variant)
+    + [3. Making the model and relations for Size and Color](#3-making-the-model-and-relations-for-size-and-color)
+    + [4. Implementing subcategories](#4-implementing-subcategories)
+    + [5. Category scope](#5-category-scope)
+    + [6. Implementing the products list](#6-implementing-the-products-list)
+    + [7. Modifications in the model OrderItem](#7-modifications-in-the-model-orderitem)
+    + [8. Coupons](#8-coupons)
+
 ## Ruby & Rails version
 
 * Ruby 2.4.5
@@ -78,7 +89,7 @@ end
 
 ### 4. Implementing subcategories
 
-Let's remember that Category works as reflexive association so it will contain new Categories inside it. This way will provide one father for the different categories that would be incorporated. These new Categories are the subcategories and are generated:
+Let's remember that Category works as reflexive association so it will contain new Categories inside. This way will provide one father for the different categories that would be incorporated. These new Categories are the subcategories and are generated:
 
 ```
 rails g migration AddCategoryToCategory category:references  
