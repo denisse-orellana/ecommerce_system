@@ -25,7 +25,7 @@ Initial state of the platform:
 
 The changes are describe in the next flowchart:
 
-![diagram2](/app/assets/images/ecommerce.drawio.png)
+![diagram2](/app/assets/images/ecommerce.png)
 
 - Variant will contain the association of the Product with Color an Size.
 - Category works as a reflexive association.

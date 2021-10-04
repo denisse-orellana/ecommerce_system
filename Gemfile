@@ -69,3 +69,5 @@ gem "devise", "~> 4.6"
 gem "bootstrap", "~> 4.3"
 
 gem "activemerchant", "~> 1.95"
+# It allows you to easily generate a diagram based on your application's Active Record models.
+gem 'rails-erd', group: :development
