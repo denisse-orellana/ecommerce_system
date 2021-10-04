@@ -17,7 +17,7 @@ This project covers a series of improvements in the system due to the changing n
 * Ruby 2.4.5
 * Rails 5.2.3
 
-### 1. Model Diagram
+### 1. Diagram Model
 
 Initial state of the platform:
 
