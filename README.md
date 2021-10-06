@@ -54,7 +54,7 @@ class Product < ApplicationRecord
 end
 ```
 
-```console
+```ruby
 class Variant < ApplicationRecord
   belongs_to :size
   belongs_to :color
@@ -72,14 +72,14 @@ rails g migration removeStockFromProduct stock:integer
 
 Since the models were previously made for each of them, the addition of the relations looks like:
 
-```console
+```ruby
 class Size < ApplicationRecord
     has_many :variants
     has_many :products, through: :variants, dependent: :destroy
 end
 ```
 
-```console
+```ruby
 class Color < ApplicationRecord
     has_many :variants
     has_many :products, through: :variants, dependent: :destroy
@@ -108,7 +108,7 @@ rails g migration AddCategoryToCategory category:references
 
 The relation is incorporated in the model:
 
-```console
+```ruby
 class Category < ApplicationRecord
   has_many :sub_categories, class_name: "Category", foreign_key: "category_id", dependent: :destroy						
   belongs_to :main_category, class_name: "Category", foreign_key: "category_id", optional: true						
@@ -136,7 +136,7 @@ rails g migration AddVariantToOrderItem variant:references
 
 The relations is added to the model:
 
-```console
+```ruby
 class OrderItem < ApplicationRecord
   belongs_to :variant
 end
@@ -144,7 +144,7 @@ end
 
 To the model Variant is also added:
 
-```console
+```ruby
 class Variant < ApplicationRecord
   has_many :order_items
   has_many :orders, through: :order_items
@@ -185,7 +185,7 @@ rails g model UserCoupon user:references coupon:references order:references acti
 
 The relations are added in the model in this way:
 
-```console
+```ruby
 class User < ApplicationRecord
   has_many :user_coupons
   has_many :coupons, through: :user_coupons, dependent: :destroy
@@ -194,7 +194,7 @@ end
 
 ```
 
-```console
+```ruby
 class Coupon < ApplicationRecord
   has_many :user_coupons
   has_many :users, through: :user_coupons, dependent: :destroy  
@@ -202,7 +202,7 @@ class Coupon < ApplicationRecord
 end
 ```
 
-```console
+```ruby
 class Order < ApplicationRecord
   has_many :user_coupons
   has_many :coupons, through: :user_coupons, dependent: :destroy
