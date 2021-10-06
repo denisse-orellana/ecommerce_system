@@ -40,13 +40,13 @@ rails g scaffold size name
 ```
 
 Next, the model Variant is generated:
-```
+```console
 rails g model Variant size:references color:references product:references stock:integer
 ```
 
 Then, the relations are added in the models:
 
-```
+```console
 class Product < ApplicationRecord
   has_many :variants
   has_many :colors, through: :variants, dependent: :destroy
@@ -54,7 +54,7 @@ class Product < ApplicationRecord
 end
 ```
 
-```
+```console
 class Variant < ApplicationRecord
   belongs_to :size
   belongs_to :color
@@ -64,7 +64,7 @@ end
 
 And because stock:integer is now included in the model Variant it is remove from the model Product:
 
-```
+```console
 rails g migration removeStockFromProduct stock:integer
 ```
 
@@ -72,14 +72,14 @@ rails g migration removeStockFromProduct stock:integer
 
 Since the models were previously made for each of them, the addition of the relations looks like:
 
-```
+```console
 class Size < ApplicationRecord
     has_many :variants
     has_many :products, through: :variants, dependent: :destroy
 end
 ```
 
-```
+```console
 class Color < ApplicationRecord
     has_many :variants
     has_many :products, through: :variants, dependent: :destroy
@@ -88,12 +88,12 @@ end
 
 * The functionality of the previous relations can be checked in the rails console as:
 
-```
+```console
 Product.new.variants
 Variant.new.product
 ```
 
-```
+```console
 Product.new.sizes
 Product.new.colors
 ```
@@ -102,13 +102,13 @@ Product.new.colors
 
 Let's remember that Category works as reflexive association so it will contain new categories inside itself. This way will provide one father (the main category) for the different categories that would be incorporated and these are the subcategories.
 
-```
+```console
 rails g migration AddCategoryToCategory category:references  
 ```
 
 The relation is incorporated in the model:
 
-```
+```console
 class Category < ApplicationRecord
   has_many :sub_categories, class_name: "Category", foreign_key: "category_id", dependent: :destroy						
   belongs_to :main_category, class_name: "Category", foreign_key: "category_id", optional: true						
@@ -117,7 +117,7 @@ end
 
 * The relation in the console looks like:
 
-```
+```console
 Category.new.main_category
 Category.new.sub_categories
 ```
@@ -130,13 +130,13 @@ Category.new.sub_categories
 
 The model OrdenItem used to be directly related with Product but, as it can be seen in the flowchart, after the changes is Variant the one that contains the key associations. To keep the functionality of the system the reference of Variant is added to OrderItem just as:
 
-```
+```console
 rails g migration AddVariantToOrderItem variant:references
 ```
 
 The relations is added to the model:
 
-```
+```console
 class OrderItem < ApplicationRecord
   belongs_to :variant
 end
@@ -144,7 +144,7 @@ end
 
 To the model Variant is also added:
 
-```
+```console
 class Variant < ApplicationRecord
   has_many :order_items
   has_many :orders, through: :order_items
@@ -153,18 +153,18 @@ end
 
 The reference of Product is remove from it, since they are not related anymore.
 
-```
+```console
 rails g migration removeProductFromOrderItem product:references
 ```
 
 * In the console, this functionality looks like:
 
-```
+```console
 Order.new.variants
 Variant.new.orders
 ```
 
-```
+```console
 OrderItem.new.variant
 OrderItem.new.order
 ```
@@ -173,19 +173,19 @@ OrderItem.new.order
 
 The coupons for specific clients are incorporated generating first the model of Coupon.
 
-```
+```console
 rails g scaffold Coupon name code discount:integer 
 ```
 
 The UserCoupon would provide the associations between the model User, Coupon and Order. The active attribute means if it's been expended (it's put as "default: false" in the migration).
 
-```
+```console
 rails g model UserCoupon user:references coupon:references order:references active:boolean
 ```
 
 The relations are added in the model in this way:
 
-```
+```console
 class User < ApplicationRecord
   has_many :user_coupons
   has_many :coupons, through: :user_coupons, dependent: :destroy
@@ -194,7 +194,7 @@ end
 
 ```
 
-```
+```console
 class Coupon < ApplicationRecord
   has_many :user_coupons
   has_many :users, through: :user_coupons, dependent: :destroy  
@@ -202,7 +202,7 @@ class Coupon < ApplicationRecord
 end
 ```
 
-```
+```console
 class Order < ApplicationRecord
   has_many :user_coupons
   has_many :coupons, through: :user_coupons, dependent: :destroy
@@ -212,17 +212,17 @@ end
 
 * In the console these relations can be checked as:
 
-```
+```console
 User.new.coupons
 User.new.orders
 ```
 
-```
+```console
 Coupon.new.users
 Coupon.new.orders
 ```
 
-```
+```console
 Order.new.coupons
 Order.new.users
 ```
