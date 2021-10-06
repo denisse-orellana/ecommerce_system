@@ -46,7 +46,7 @@ rails g model Variant size:references color:references product:references stock:
 
 Then, the relations are added in the models:
 
-```console
+```ruby
 class Product < ApplicationRecord
   has_many :variants
   has_many :colors, through: :variants, dependent: :destroy
