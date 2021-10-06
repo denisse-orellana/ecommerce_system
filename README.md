@@ -34,7 +34,7 @@ The changes are describe in the next flowchart:
 ### 2. Making the model and relations for Variant
 
 First things first: the model of Color and Size is generated using the scaffold command:
-```
+```console
 rails g scaffold color name
 rails g scaffold size name
 ```
